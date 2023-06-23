@@ -1,49 +1,5 @@
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <unordered_map>
-#include <map>
-#include <regex>
-
-#define BUFFER_SIZE 8192 // 8kb buffer size
-
-using std::cout;
-using std::cerr;
-using std::endl;
-using std::string;
-using std::regex;
-
-const string EXTENSION= "wlang";
-
-std::ifstream sourceCode;
-std::unordered_map<string, int> typeMap;
-std::unordered_map<string, long long int> numberMap;
-std::unordered_map<string, long double> decimalMap;
-std::unordered_map<string, string> stringMap;
-
-const char * const regexStrings[]= {
-    "^Say\\s", // 0 - Print statement 
-    "^Let\\s", // 1 - Declaration
-    "^Store\\s", // 2 - Assignment
-};
-
-const std::map<string, regex> regexEscape= {
-    {string("\""), regex("\\\\\"")},
-    {string("\n"), regex("\\\\n")},
-    {string("\\"), regex("\\\\\\\\")},
-    {string("\r"), regex("\\\\r")},
-    {string("\t"), regex("\\\\t")}
-};
-
-bool checkExtension(char* filename);
-int interpret(char* sentence);
-
-int printAction(string sentence);
-int declareAction(string sentence);
-int assignAction(string sentence);
-int getAction(char* sentence);
-
-string validateString(string statement);
+#include "wlang.hpp"
+#include "regex_constant.hpp"
 
 int main(int argc, char *argv[]){
     // check command line arguments
